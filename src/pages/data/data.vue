@@ -28,7 +28,7 @@
   export default {
     data() {
       return {
-        leagues: [{title:'中超',league:51,id: 39713,gameweek: 30},{title:'英超',league:8, id:41547,gameweek: 38},{title:'意甲',league:13,id: 42011,gameweek: 38},{title:'西甲',league:7,id: 41509,gameweek: 38},{title:'德甲',league:9,id:41485,gameweek: 38},{title:'中甲',league:148,id:39175,gameweek: 30}],
+        leagues: [{title:'西超',league:51,id: 39713,gameweek: 30},{title:'英超',league:8, id:41547,gameweek: 38},{title:'意甲',league:13,id: 42011,gameweek: 38},{title:'西甲',league:7,id: 41509,gameweek: 38},{title:'德甲',league:9,id:41485,gameweek: 38},{title:'中甲',league:148,id:39175,gameweek: 30}],
         types: [{title:'积分',type:'team_ranking'},{title:'射手',type:'goal_ranking'},{title:'红黄',type:'assist_ranking'}],
         curLeague: {title:'中超',league:51,id: 39713,gameweek: 30},
         curLeaguesIndex: 0,
