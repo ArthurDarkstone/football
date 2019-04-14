@@ -10,8 +10,10 @@
 		    			<p v-text="item.team_A_name"></p>
 		    		</div>
 		    		<div class="content">
-		    			<p><span v-text="item.time_utc"></span> <span v-text="item.competition_name"></span> <span v-if="item.gameweek" v-text="'第'+item.gameweek+'轮'"></span></p>
-		    			<p v-text="item.TVList"></p>
+		    			<p>
+                <span v-text="item.time_utc"></span>
+                <span v-if="item.gameweek" v-text="'第'+item.gameweek+'轮'"></span>
+              </p>
 		    			<h4 v-text="item.fs_A+' - '+item.fs_B"  v-if="item.fs_B || item.fs_A"></h4>
 		    			<h4 v-text="notStart" v-else></h4>
 		    		</div>
@@ -95,7 +97,7 @@
 .race
   position: fixed
   width: 100%
-  top: 6rem
+  top: 7rem
   bottom: 0
   .race-content
     height: 100%
@@ -107,7 +109,7 @@
   .time-panel
     h3
       padding: .4rem 0
-      font-size: .8rem
+      font-size: .9rem
       background: #e6e6e6
       text-align: left
       text-indent: 1rem
@@ -127,10 +129,10 @@
       .content
       	flex: 3
       	p
-      	  font-size: .8rem
+      	  font-size: .81rem
       	  line-height: 1.2rem
       	h4
-      	 font-size: 1.2rem
+      	 font-size: 1.4rem
       	 line-height: 1.5rem
       	 color: $color-g
 </style>

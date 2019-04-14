@@ -43,12 +43,13 @@
   p
   	text-align: left
   dl
-  	background: #e2e2e2
+  	background: #F0FFFF
   	font-size: 1rem
-	dt 
-    display: flex 
-    padding: .5rem 0 
+	dt
+    display: flex
+    padding: .5rem 0
     border-bottom: 1px solid #d0cece
+    background:	#F8F8FF
 	  .type1
 	  	flex: 4
 	  	text-align: center

@@ -2,7 +2,6 @@
   <header>
   	<div class="title">
       <!-- <i class="back" @click="back" v-if="isBack"><</i> -->
-  	  <i class="iconfont icon-zuqiu"></i>
       黑科足球
   	</div>
     <!-- <transition name="slide"> -->

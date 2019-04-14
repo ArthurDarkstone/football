@@ -8,6 +8,7 @@ const Race = () => import('pages/race/race.vue')
 const Data = () => import('pages/data/data.vue')
 
 const router = new Router({
+  linkExactActiveClass: 'is-selected',
   // routes配置最好加上name属性，用于参数传递
   routes: [
    {

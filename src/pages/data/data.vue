@@ -9,7 +9,6 @@
           <score :score="datas" v-if="0==curType && datas.length" @updateScroll="freshScroll"></score>
           <shooter :shooter="datas" v-if="1==curType && datas.length" @updateScroll="freshScroll"/>
           <assist :assist="datas" v-if="2==curType && datas.length" @updateScroll="freshScroll"/>
-          <schedule :schedule="datas" v-if="3==curType && datas.length" @updateScroll="freshScroll"/>
         </div>
         <loading v-if="!datas.length"></loading>
       </scroll>
@@ -23,7 +22,6 @@
   import Score from 'pages/rank/score'
   import Shooter from 'pages/rank/shooter'
   import Assist from 'pages/rank/assist'
-  import Schedule from 'pages/rank/schedule'
   import {getRank} from 'api/rank'
   export default {
     data() {
@@ -36,8 +34,7 @@
         activeClass: 'on',
         scores: [],
         shooters: [],
-        assists: [],
-        schedules: []
+        assists: []
       }
     },
     computed: {
@@ -45,8 +42,7 @@
         let obj = {
           0: this.scores,
           1: this.shooters,
-          2: this.assists,
-          3: this.schedules
+          2: this.assists
         }
         return obj[this.curType]
       }
@@ -87,9 +83,6 @@
               },
               'assist_ranking':() => {
                 this.assists = res.data
-              },
-              'schedule':() => {
-                this.schedules = res.data.matches
               }
             }
             if (typeof obj[type] !== 'function') {
@@ -104,14 +97,12 @@
         this.scores = []
         this.shooters = []
         this.assists = []
-        this.schedules = []
       }
     },
     components: {
       Score,
       Shooter,
       Assist,
-      Schedule,
       Loading,
       Scroll
     }
@@ -135,9 +126,9 @@
       border-bottom: 1px solid $color-g
   ol
     display:flex
-    background: #3c3b3b
+    background: #fff
     font-size: 1rem
-    color: #ffffff
+    color: #000
     box-sizing: border-box
     li
       flex: 1
@@ -149,7 +140,7 @@
   .rank
     position: fixed
     width: 100%
-    top: 8.4rem
+    top: 9.15rem
     bottom: 0
     .rank-content
       height: 100%

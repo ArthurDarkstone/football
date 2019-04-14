@@ -1,10 +1,12 @@
 <template>
-  <div class="tab">
-    <ul>
-    	<router-link to="/race" tag="li">赛程</router-link>
-    	<router-link to="/data" tag="li">数据</router-link>
-    </ul>
-  </div>
+  <mt-navbar>
+    <mt-tab-item class="tab-item">
+      <router-link class="her" to="/race">比赛</router-link>
+    </mt-tab-item>
+    <mt-tab-item class="tab-item">
+      <router-link class="her" to="/data">数据</router-link>
+    </mt-tab-item>
+  </mt-navbar>
 </template>
 
 <script>
@@ -20,20 +22,10 @@
   }
 </script>
 
-<style scoped lang="stylus" rel="stylesheet/stylus">
-@import "~common/stylus/variable"
-	.tab
-		ul
-			display: flex
-			justify-content: center
-			width: 100%
-			height: 2.8rem
-			line-height: 2.8rem
-			font-size: 1.1rem
-			li
-				flex: 1
-				border-bottom: 1px solid $color-border
-			  & .router-link-active
-				  color: $color-g
-				  border-bottom:1px solid $color-g
+<style scoped>
+ .her {
+   font-size: 15px;
+   display: block;
+   width: 100%;
+ }
 </style>

@@ -32,7 +32,7 @@
   export default {
   	date() {
   		return {
-  		   
+
   		}
   	},
   	props: {
@@ -56,12 +56,13 @@
   p
   	text-align: left
   dl
-  	background: #e2e2e2
+  	background:	#F0FFFF
   	font-siez: 1rem
-	dt 
-    display: flex 
-    padding: .5rem 0 
+	dt
+    display: flex
+    padding: .5rem 0
     border-bottom: 1px solid #d0cece
+    background:	#F8F8FF
 	  .type0
 	  	flex: 1
 	  	text-align:left
