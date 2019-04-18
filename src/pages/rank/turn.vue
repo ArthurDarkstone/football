@@ -1,17 +1,26 @@
 <template>
   <div class="shooter">
-  	<dl>
-  		<dt>
-  		    <div class="type3">排名</div>
-  			<div class="type1">球员</div>
-  			<div class="type1">球队</div>
-  			<div class="type3">进球数</div>
+  	<dl v-for="itemAll of turns">
+      <dt>
+  			<div class="type3">{{ itemAll.turn_name }}</div>
   		</dt>
-  		<dd v-for="(item, index) in shooter">
+  		<dt>
+  		   <div class="type3"></div>
+  			<div class="type1">球队1</div>
+  			<div class="type1">球队2</div>
+  			<div class="type3">{{ itemAll.turn_name }}</div>
+  		</dt>
+  		<dd v-for="(item, index) of itemAll.games">
   			<div class="type3" v-text="index+1"></div>
-  			<div class="type1" v-text="item.player_name"></div>
-  			<div class="type1" v-text="item.team_name"></div>
-  			<div class="type3" v-text="item.pt_score"></div>
+        <div class="type1">
+  				<img v-lazy="item.team_a_logo"/>
+  				<span v-html="item.schedule_team_a"></span>
+  			</div>
+  			<div class="type1">
+  				<img v-lazy="item.team_b_logo"/>
+  				<span v-html="item.schedule_team_b"></span>
+  			</div>
+  			<div class="type3" v-text="item.count"></div>
   		</dd>
   	</dl>
   </div>
@@ -20,9 +29,9 @@
 <script>
   export default {
   	props: {
-  	  shooter: {
-    		type: Array,
-    		required: true
+  	  turns: {
+  		type: Array,
+  		required: true
   	  }
   	},
   	mounted() {
@@ -62,10 +71,7 @@
 	  	flex: 4
 	  	text-align: center
 	  	img
-	  	  width: 1.4rem
-	  	  position: absolute
-	  	  top: 1rem
-	  	  left: 3.5rem
+	  	  width: 1.2rem
 	  .type3
 	  	flex: 2
 </style>

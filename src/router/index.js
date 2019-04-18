@@ -3,28 +3,28 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 
+const Home = () => import('pages/home/home.vue')
 const Detail = () => import('pages/detail/detail.vue')
 const Race = () => import('pages/race/race.vue')
 const Data = () => import('pages/data/data.vue')
 
 const router = new Router({
-  linkExactActiveClass: 'is-selected',
   // routes配置最好加上name属性，用于参数传递
   routes: [
-   {
+    {
       path: '/',
-      redirect: '/race'
+      component: Home
     },
     {
-      path: '/detail',
+      path: '/:leg(\\d+)/race/:id(\\d+)',
       component: Detail
     },
     {
-      path: '/race',
+      path: '/:leg(\\d+)/race',
       component: Race
     },
     {
-      path: '/data',
+      path: '/:leg(\\d+)/data',
       component: Data
     },
     // 设置404错误页面
@@ -41,7 +41,7 @@ router.beforeEach((to, from, next) => {
   if (to.matched.length >= 1) {
     next()
   } else {
-    next({path: '/news'})
+    next({path: '/home'})
   }
 })
 

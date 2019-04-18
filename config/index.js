@@ -29,7 +29,7 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
         '/v1':{
-            target: '192.168.1.100:5000',
+            target: 'http://localhost:5000/sport/v1',
             changeOrigin: true,
             pathRewrite: {
                 '^/v1': ''

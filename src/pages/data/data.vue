@@ -1,14 +1,23 @@
 <template>
   <div class="data">
+    <tab></tab>
     <ol>
       <li v-for="(item,index) in types" v-text="item.title" :class="curType===index ? activeClass : ''" @click="onRank(item,index)"></li>
     </ol>
     <div class="rank">
       <scroll ref="scroll" class="rank-content" :data="datas">
-        <div>
-          <score :score="datas" v-if="0==curType && datas.length" @updateScroll="freshScroll"></score>
-          <shooter :shooter="datas" v-if="1==curType && datas.length" @updateScroll="freshScroll"/>
-          <assist :assist="datas" v-if="2==curType && datas.length" @updateScroll="freshScroll"/>
+        <div v-if="$route.query.league_type == 1">
+          <shooter :shooter="datas" v-if="0==curType && datas.length" @updateScroll="freshScroll"/>
+          <yellow :yellow="datas" v-if="1==curType && datas.length" @updateScroll="freshScroll"/>
+          <red :red="datas" v-if="2==curType && datas.length" @updateScroll="freshScroll"/>
+          <score :score="datas" v-if="3==curType && datas.length" @updateScroll="freshScroll"/>
+        </div>
+        <div v-else>
+          <shooter :shooter="datas" v-if="0==curType && datas.length" @updateScroll="freshScroll"/>
+          <yellow :yellow="datas" v-if="1==curType && datas.length" @updateScroll="freshScroll"/>
+          <red :red="datas" v-if="2==curType && datas.length" @updateScroll="freshScroll"/>
+          <schedule :turns="datas" v-if="3==curType && datas.length" @updateScroll="freshScroll"/>
+          <group :groups="datas" v-if="4==curType && datas.length" @updateScroll="freshScroll"/>
         </div>
         <loading v-if="!datas.length"></loading>
       </scroll>
@@ -19,36 +28,73 @@
 <script>
   import Loading from 'components/loading/loading'
   import Scroll from 'components/scroll/scroll'
+  import Tab from 'components/tab/tab'
   import Score from 'pages/rank/score'
   import Shooter from 'pages/rank/shooter'
-  import Assist from 'pages/rank/assist'
-  import {getRank} from 'api/rank'
+  import Yellow from 'pages/rank/yellow'
+  import Red from 'pages/rank/red'
+  import Schedule from 'pages/rank/turn'
+  import Group from 'pages/rank/group'
+  import { getRank } from 'api/rank'
   export default {
     data() {
       return {
-        leagues: [{title:'中超',league:51,id: 39713,gameweek: 30},{title:'英超',league:8, id:41547,gameweek: 38},{title:'意甲',league:13,id: 42011,gameweek: 38},{title:'西甲',league:7,id: 41509,gameweek: 38},{title:'德甲',league:9,id:41485,gameweek: 38},{title:'中甲',league:148,id:39175,gameweek: 30}],
-        types: [{title:'积分',type:'team_ranking'},{title:'射手',type:'goal_ranking'},{title:'红黄',type:'assist_ranking'}],
-        curLeague: {title:'中超',league:51,id: 39713,gameweek: 30},
+        types: [],
+        curLeague: {
+          title: '啥啥杯',
+          league: this.$route.params.leg
+        },
         curLeaguesIndex: 0,
         curType: 0,
         activeClass: 'on',
         scores: [],
         shooters: [],
-        assists: []
+        yellows: [],
+        reds: [],
+        schedules: [],
+        groups: []
       }
     },
     computed: {
       datas() {
-        let obj = {
-          0: this.scores,
-          1: this.shooters,
-          2: this.assists
+        let obj = {}
+        if (this.$route.query.league_type == '1') {
+          obj = {
+            0: this.shooters,
+            1: this.yellows,
+            2: this.reds,
+            3: this.scores
+          }
+        } else {
+          obj = {
+            0: this.shooters,
+            1: this.yellows,
+            2: this.reds,
+            3: this.schedules,
+            4: this.groups
+          }
         }
         return obj[this.curType]
       }
     },
     created() {
-      this._getRank('team_ranking', this.curLeague)
+      this._getRank('goal_ranking', this.curLeague)
+      if (this.$route.query.league_type == 1) {
+        this.types = [
+          {title:'射手',type:'goal_ranking'},
+          {title:'黄牌',type:'yellow_ranking'},
+          {title:'红牌',type:'red_ranking'},
+          {title:'积分',type:'team_ranking'}
+        ]
+      } else {
+        this.types = [
+          {title:'射手',type:'goal_ranking'},
+          {title:'黄牌',type:'yellow_ranking'},
+          {title:'红牌',type:'red_ranking'},
+          {title:'淘汰赛',type:'schedule'},
+          {title:'小组赛',type:'group'}
+        ]
+      }
     },
     methods: {
       // DOM渲染刷新滚动区域
@@ -73,16 +119,25 @@
       _getRank(type ,league) {
         getRank(type,league).then((res)=>{
           console.log(res)
-          if(res.statusText === 'OK'){
+          if(res.status === 201){
             let obj = {
               'team_ranking':() => {
-                this.scores = res.data[0].rankings
+                this.scores = res.data.data
               },
               'goal_ranking':() => {
-                this.shooters = res.data
+                this.shooters = res.data.data
               },
-              'assist_ranking':() => {
-                this.assists = res.data
+              'yellow_ranking':() => {
+                this.yellows = res.data.data
+              },
+              'red_ranking':() => {
+                this.reds = res.data.data
+              },
+              'schedule':() => {
+                this.schedules = res.data.data
+              },
+              'group':() => {
+                this.groups = res.data.data
               }
             }
             if (typeof obj[type] !== 'function') {
@@ -96,15 +151,22 @@
       _clearRank(){
         this.scores = []
         this.shooters = []
-        this.assists = []
+        this.yellows = []
+        this.reds = []
+        this.schedules = []
+        this.groups = []
       }
     },
     components: {
       Score,
       Shooter,
-      Assist,
+      Yellow,
+      Red,
+      Schedule,
+      Group,
       Loading,
-      Scroll
+      Scroll,
+      Tab
     }
   }
 </script>

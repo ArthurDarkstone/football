@@ -1,28 +1,29 @@
 <template>
-  <div class="score">
-  	<dl>
+  <div class="group">
+  	<dl v-for="itemAll of groups">
   		<dt>
-  		  <div class="type0"></div>
-  			<div class="type1">球队</div>
-  			<div class="type2">场</div>
-  			<div class="type2">胜</div>
-  			<div class="type2">负</div>
-  			<div class="type2">平</div>
-  			<div class="type3">进/失</div>
-  			<div class="type3">积分</div>
+  			<div class="type3">{{ itemAll.group_name }}</div>
   		</dt>
-  		<dd v-for="(item, index) in score">
-  			<div class="type2" v-text="++index"></div>
+      <dt>
+        <div class="type0"></div>
+        <div class="type1">球队</div>
+        <div class="type2">胜</div>
+        <div class="type2">负</div>
+        <div class="type2">平</div>
+        <div class="type3">进/失</div>
+        <div class="type3">积分</div>
+  		</dt>
+  		<dd v-for="(item, index) of itemAll.group_team">
+        <div class="type2" v-text="++index"></div>
   			<div class="type1">
   				<img :src="item.team_logo"/>
   				<span v-html="item.team_name"></span>
   			</div>
-  			<div class="type2" v-text="item.grade_turns">19</div>
-  			<div class="type2" v-text="item.grade_win">13</div>
-  			<div class="type2" v-text="item.grade_lose">4</div>
-  			<div class="type2" v-text="item.grade_equal">2</div>
-  			<div class="type3" v-text="item.grade_goal+'/'+item.grade_fumble">41/27</div>
-  			<div class="type3" v-text="item.grade_integral"></div>
+  			<div class="type2" v-text="item.gt_win">13</div>
+  			<div class="type2" v-text="item.gt_lose">4</div>
+  			<div class="type2" v-text="item.gt_equal">2</div>
+  			<div class="type3" v-text="item.gt_goal+'/'+item.gt_fumble">41/27</div>
+  			<div class="type3" v-text="item.gt_integral"></div>
   		</dd>
   	</dl>
   </div>
@@ -30,10 +31,8 @@
 
 <script>
   export default {
-  	date() {
-  	},
   	props: {
-  	  score: {
+  	  groups: {
   		type: Array,
   		required: true
   	  }
@@ -47,7 +46,7 @@
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
-.score
+.group
   h3
   	text-align: left
   p

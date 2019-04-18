@@ -1,10 +1,8 @@
 <template>
   <header>
   	<div class="title">
-      <!-- <i class="back" @click="back" v-if="isBack"><</i> -->
-      黑科足球
+      <span>黑科足球</span>
   	</div>
-    <!-- <transition name="slide"> -->
   </header>
 </template>
 

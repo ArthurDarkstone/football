@@ -11,14 +11,14 @@ var loadinginstace
 axios.interceptors.request.use(config => {
 	return config
 }, error => {
- 	console.log('req error')
+ 	console.log('request error')
 	return Promise.reject(error)
 })
 // http响应拦截器
 axios.interceptors.response.use(data => {
 	return data
 }, error => {
- 	console.log('res error...')
+ 	console.log('response error...')
 	return Promise.reject(error)
 })
 

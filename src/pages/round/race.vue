@@ -13,7 +13,7 @@
   	     <div>
   		    <div class="time-panel" v-for="itemAll in races">
   		      <h3 v-text="itemAll.time"></h3>
-  		    	<router-link  :to="{ path: '/' + $route.params.leg + '/race/' + item.schedule_id }" class="row" v-for="(item,index) in itemAll.game" :key="index">
+  		    	<router-link  :to="{ path: '/race/' + item.schedule_id, query: item }" class="row" v-for="(item,index) in itemAll.game" :key="index">
   		    		<div class="team">
   		    			<div><img v-lazy="item.teama_logo" alt="球队logo"></div>
   		    			<p v-text="item.teama_name"></p>
@@ -59,13 +59,12 @@
   		}
   	},
   	created() {
-      const league = this.$route.league_id
       this._getRace()
   	},
   	methods: {
   	  _getRace() {
         const params = {
-          league_id: this.$route.params.leg,
+          league_id: this.$route.query.league_id,
           limit: this.limit,
           offset: this.topoffset,
           order: this.order
@@ -84,7 +83,7 @@
         this.topoffset += this.limit
         this.order = 1
         const params = {
-          league_id: this.$route.params.leg,
+          league_id: this.league_id,
           limit: this.limit,
           offset: this.topoffset,
           order: this.order
@@ -105,7 +104,7 @@
         this.botoffset += this.limit
         this.order = 2
         const params = {
-          league_id: this.$route.params.leg,
+          league_id: this.league_id,
           limit: this.limit,
           offset: this.botoffset,
           order: this.order

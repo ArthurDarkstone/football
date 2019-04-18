@@ -1,17 +1,17 @@
 <template>
-  <div class="shooter">
+  <div class="assist">
   	<dl>
   		<dt>
-  		    <div class="type3">排名</div>
+  		  <div class="type3">排名</div>
   			<div class="type1">球员</div>
   			<div class="type1">球队</div>
-  			<div class="type3">进球数</div>
+  			<div class="type3">红牌</div>
   		</dt>
-  		<dd v-for="(item, index) in shooter">
+  		<dd v-for="(item, index) in red">
   			<div class="type3" v-text="index+1"></div>
   			<div class="type1" v-text="item.player_name"></div>
   			<div class="type1" v-text="item.team_name"></div>
-  			<div class="type3" v-text="item.pt_score"></div>
+  			<div class="type3" v-text="item.pt_red_card"></div>
   		</dd>
   	</dl>
   </div>
@@ -20,9 +20,9 @@
 <script>
   export default {
   	props: {
-  	  shooter: {
-    		type: Array,
-    		required: true
+  	  red: {
+  		type: Array,
+  		required: true
   	  }
   	},
   	mounted() {
@@ -34,7 +34,7 @@
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
-.shooter
+.assist
   h3
   	text-align: left
   p
@@ -44,8 +44,8 @@
   	font-size: 1rem
 	dt
     display: flex
-    padding: .5rem 0
     border-bottom: 1px solid #d0cece
+    padding: .5rem 0
     background:	#F8F8FF
 	  .type1
 	  	flex: 4

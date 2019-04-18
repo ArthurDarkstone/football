@@ -5,16 +5,13 @@
   		  <div class="type3">排名</div>
   			<div class="type1">球员</div>
   			<div class="type1">球队</div>
-  			<div class="type3">犯规</div>
+  			<div class="type3">黄牌</div>
   		</dt>
-  		<dd v-for="(item, index) in assist">
+  		<dd v-for="(item, index) in yellow">
   			<div class="type3" v-text="index+1"></div>
-  			<div class="type1" v-text="item.name"></div>
-  			<div class="type1">
-  				<img :src="'//img.dongqiudi.com/data/pic/'+item.team_id+'.png'"/>
-  				<span v-html="item.team_name"></span>
-  			</div>
-  			<div class="type3" v-text="item.count"></div>
+  			<div class="type1" v-text="item.player_name"></div>
+  			<div class="type1" v-text="item.team_name"></div>
+  			<div class="type3" v-text="item.pt_yellow_card"></div>
   		</dd>
   	</dl>
   </div>
@@ -23,7 +20,7 @@
 <script>
   export default {
   	props: {
-  	  assist: {
+  	  yellow: {
   		type: Array,
   		required: true
   	  }
