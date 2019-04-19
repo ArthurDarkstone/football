@@ -7,17 +7,17 @@
     <div class="rank">
       <scroll ref="scroll" class="rank-content" :data="datas">
         <div v-if="$route.query.league_type == 1">
-          <shooter :shooter="datas" v-if="0==curType && datas.length" @updateScroll="freshScroll"/>
-          <yellow :yellow="datas" v-if="1==curType && datas.length" @updateScroll="freshScroll"/>
-          <red :red="datas" v-if="2==curType && datas.length" @updateScroll="freshScroll"/>
-          <score :score="datas" v-if="3==curType && datas.length" @updateScroll="freshScroll"/>
+          <score :score="datas" v-if="0==curType && datas.length" @updateScroll="freshScroll"/>
+          <shooter :shooter="datas" v-if="1==curType && datas.length" @updateScroll="freshScroll"/>
+          <yellow :yellow="datas" v-if="2==curType && datas.length" @updateScroll="freshScroll"/>
+          <red :red="datas" v-if="3==curType && datas.length" @updateScroll="freshScroll"/>
         </div>
         <div v-else>
-          <shooter :shooter="datas" v-if="0==curType && datas.length" @updateScroll="freshScroll"/>
-          <yellow :yellow="datas" v-if="1==curType && datas.length" @updateScroll="freshScroll"/>
-          <red :red="datas" v-if="2==curType && datas.length" @updateScroll="freshScroll"/>
-          <schedule :turns="datas" v-if="3==curType && datas.length" @updateScroll="freshScroll"/>
-          <group :groups="datas" v-if="4==curType && datas.length" @updateScroll="freshScroll"/>
+          <group :group="datas" v-if="0==curType && datas.length" @updateScroll="freshScroll"/>
+          <schedule :turns="datas" v-if="1==curType && datas.length" @updateScroll="freshScroll"/>
+          <shooter :shooter="datas" v-if="2==curType && datas.length" @updateScroll="freshScroll"/>
+          <yellow :yellow="datas" v-if="3==curType && datas.length" @updateScroll="freshScroll"/>
+          <red :red="datas" v-if="4==curType && datas.length" @updateScroll="freshScroll"/>
         </div>
         <loading v-if="!datas.length"></loading>
       </scroll>
@@ -58,41 +58,42 @@
     computed: {
       datas() {
         let obj = {}
-        if (this.$route.query.league_type == '1') {
+        if (this.$route.query.league_type == 1) {
           obj = {
-            0: this.shooters,
-            1: this.yellows,
-            2: this.reds,
-            3: this.scores
+            0: this.scores,
+            1: this.shooters,
+            2: this.yellows,
+            3: this.reds
           }
         } else {
           obj = {
-            0: this.shooters,
-            1: this.yellows,
-            2: this.reds,
-            3: this.schedules,
-            4: this.groups
+            0: this.groups,
+            1: this.schedules,
+            2: this.shooters,
+            3: this.yellows,
+            4: this.reds
           }
         }
         return obj[this.curType]
       }
     },
     created() {
-      this._getRank('goal_ranking', this.curLeague)
       if (this.$route.query.league_type == 1) {
+        this._getRank('team_ranking', this.curLeague)
         this.types = [
+          {title:'积分',type:'team_ranking'},
           {title:'射手',type:'goal_ranking'},
           {title:'黄牌',type:'yellow_ranking'},
-          {title:'红牌',type:'red_ranking'},
-          {title:'积分',type:'team_ranking'}
+          {title:'红牌',type:'red_ranking'}
         ]
       } else {
+        this._getRank('group', this.curLeague)
         this.types = [
+          {title:'小组赛',type:'group'},
+          {title:'淘汰赛',type:'schedule'},
           {title:'射手',type:'goal_ranking'},
           {title:'黄牌',type:'yellow_ranking'},
-          {title:'红牌',type:'red_ranking'},
-          {title:'淘汰赛',type:'schedule'},
-          {title:'小组赛',type:'group'}
+          {title:'红牌',type:'red_ranking'}
         ]
       }
     },
@@ -102,13 +103,7 @@
         this.$refs.scroll.refresh()
       },
       // 获取当前的联赛
-      onCurrentLeague(item,index) {
-        this._clearRank()
-        this.curLeaguesIndex = index
-        this.curLeague = item
-        this.curType = 0
-        this._getRank('team_ranking', item)
-      },
+
       // 获取排行榜
       onRank(item,index){
         this._clearRank()
@@ -174,18 +169,6 @@
 <style scoped lang="stylus" rel="stylesheet/stylus">
 @import "~common/stylus/variable"
 .data
-  ul
-  	display: flex
-  	font-size: 1rem
-  	background: #eee
-  	color: $color-g
-  	li
-      flex: 1
-      height: 2.5rem
-      line-height: 2.5rem
-      box-sizing: border-box
-    .on
-      border-bottom: 1px solid $color-g
   ol
     display:flex
     background: #fff
@@ -194,8 +177,8 @@
     box-sizing: border-box
     li
       flex: 1
-      height: 2.5rem
-      line-height: 2.5rem
+      height: 2.1rem
+      line-height: 2.1rem
       box-sizing: border-box
     .on
       border-bottom: 1px solid $color-g

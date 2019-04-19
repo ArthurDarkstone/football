@@ -47,12 +47,13 @@ export default {
  }
  .item img {
    display: block;
-   width: 70px;
-   height: 70px;
+   width: 50px;
+   height: 50px;
    margin: 0 auto;
  }
  .item span {
    width: 100%;
+   line-height: 32px;
    text-align: center;
  }
 </style>

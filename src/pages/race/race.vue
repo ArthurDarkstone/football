@@ -20,16 +20,15 @@
   		    		</div>
   		    		<div class="content">
   		    			<p>
-                  <span v-text="item.schedule_location"></span>
-                  <span v-text="new Date(item.schedule_time).toLocaleTimeString()"></span>
                   <span v-if="item.schedule_turn_name" v-text="item.schedule_turn_name"></span>
+                  <span v-text="new Date(item.schedule_time*1000).toLocaleTimeString().substring(0,new Date(item.schedule_time*1000).toLocaleTimeString().length-3)"></span>
                 </p>
   		    			<h4 v-text="item.schedule_score_a+' - '+item.schedule_score_b"  v-if="item.schedule_status"></h4>
   		    			<h4 v-text="notStart" v-else></h4>
   		    		</div>
   		    		<div class="team">
   		    			<div><img v-lazy="item.teamb_logo" alt=""></div>
-  		    			<p v-text="item.teama_name"></p>
+  		    			<p v-text="item.teamb_name"></p>
   		    		</div>
   		    	</router-link>
   		    </div>
@@ -52,7 +51,7 @@
   			notStart: '未开始',
         allLoaded: false,
         league_id: 1,
-        limit: 2,
+        limit: 3,
         topoffset: 0,
         botoffset: 0,
         order: 2

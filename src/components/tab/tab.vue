@@ -1,12 +1,10 @@
 <template>
-  <mt-navbar>
-    <mt-tab-item class="tab-item">
-      <router-link class="her" :to="{ path: '/' + league_id + '/race', query: { ...que } }">比赛</router-link>
-    </mt-tab-item>
-    <mt-tab-item class="tab-item">
-      <router-link class="her" :to="{ path: '/' + league_id + '/data', query: { ...que } }">数据</router-link>
-    </mt-tab-item>
-  </mt-navbar>
+  <div class="tab">
+    <ul>
+      <router-link :to="{ path: '/' + league_id + '/race', query: { ...que } }" tag="li">比赛</router-link>
+      <router-link :to="{ path: '/' + league_id + '/data', query: { ...que } }" tag="li">数据</router-link>
+    </ul>
+  </div>
 </template>
 
 <script>
@@ -29,10 +27,20 @@
   }
 </script>
 
-<style scoped>
- .her {
-   font-size: 15px;
-   display: block;
-   width: 100%;
- }
+<style scoped lang="stylus" rel="stylesheet/stylus">
+@import "~common/stylus/variable"
+	.tab
+		ul
+			display: flex
+			justify-content: center
+			width: 100%
+			height: 3.8rem
+			line-height: 3.8rem
+			font-size: 1.1rem
+			li
+				flex: 1
+				border-bottom: 2px solid $color-border
+			  & .router-link-active
+				  color: $color-g
+				  border-bottom: 2px solid $color-g
 </style>

@@ -23,16 +23,16 @@ module.exports = {
   },
   dev: {
     env: require('./dev.env'),
-    port: 8080,
+    port: 5000,
     autoOpenBrowser: true,
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
         '/v1':{
-            target: 'http://localhost:5000/sport/v1',
+            target: 'http://match.yunbaoainio.cn/sport/v1',
             changeOrigin: true,
             pathRewrite: {
-                '^/v1': ''
+                '^/sport/v1': ''
             }
         }
     },

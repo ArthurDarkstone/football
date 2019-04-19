@@ -1,6 +1,6 @@
 <template>
   <div class="group">
-  	<dl v-for="itemAll of groups">
+  	<dl v-for="itemAll of group">
   		<dt>
   			<div class="type3">{{ itemAll.group_name }}</div>
   		</dt>
@@ -26,13 +26,34 @@
   			<div class="type3" v-text="item.gt_integral"></div>
   		</dd>
   	</dl>
+    <p>
+      <ul>
+        <span>黑科院系杯小组赛名次决定方法</span>
+        <li>（一）每队胜一场得3分，平一场得1分，负一场得0分</li>
+        <li>（二）小组赛结束，积分多的名次列前</li>
+        <li>（三）如果两队或两队以上积分相同，依下列顺序排列名次</li>
+        <li><span class="sad">a.相互比赛积分多者，名次列前</span></li>
+        <li><span class="sad">b.相互比赛净胜球多者，名次列前</span></li>
+        <li><span class="sad">c.相互比赛进球多者，名次列前</span></li>
+        <li><span class="sad">d.小组赛净胜球多者，名次列前</span></li>
+        <li><span class="sad">e.小组赛进球多者，名次列前</span></li>
+        <li><span class="sad">f.全部比赛红黄牌扣分少者，名次列前</span></li>
+        <li><span class="sad">g.点球决定</span></li>
+      </ul>
+      <div class="ps">
+        小组赛一名球员累计两张黄牌禁赛一场，半决赛前不清零（3场小组赛（ A、B、C组两场）＋¼决赛累计两张半决赛停赛，
+      </div>
+      <div class="ps">
+        如果3场小组赛（A、B、C组两场）＋¼决赛累计一张或者没有，半决赛不停赛），禁赛之后黄牌清零,半决赛红牌，决赛禁赛。
+      </div>
+    </p>
   </div>
 </template>
 
 <script>
   export default {
   	props: {
-  	  groups: {
+  	  group: {
   		type: Array,
   		required: true
   	  }
@@ -47,6 +68,25 @@
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
 .group
+  ul
+    margin-top: 20px
+    span
+      font-weight: bold
+      display: block
+      text-align: center
+      font: blod
+      margin-bottom: 10px
+    li
+      line-height: 30px
+      .sad
+        margin-left: 50px
+        font-weight: lighter
+        text-align: left
+        line-height: 16px
+  .ps
+    text-indent: 2.2rem
+    text-align: left
+    line-height: 1.2rem
   h3
   	text-align: left
   p
