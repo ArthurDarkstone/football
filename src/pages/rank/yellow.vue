@@ -8,7 +8,7 @@
   			<div class="type3">黄牌</div>
   		</dt>
   		<dd v-for="(item, index) in yellow">
-  			<div class="type3" v-text="index+1"></div>
+  			<div class="type3" v-text="item.rank"></div>
   			<div class="type1" v-text="item.player_name"></div>
   			<div class="type1" v-text="item.team_name"></div>
   			<div class="type3" v-text="item.pt_yellow_card"></div>

@@ -6,8 +6,8 @@
   			<div class="type1">球队</div>
   			<div class="type2">场</div>
   			<div class="type2">胜</div>
-  			<div class="type2">负</div>
   			<div class="type2">平</div>
+        <div class="type2">负</div>
   			<div class="type3">进/失</div>
   			<div class="type3">积分</div>
   		</dt>
@@ -19,8 +19,8 @@
   			</div>
   			<div class="type2" v-text="item.grade_turns">19</div>
   			<div class="type2" v-text="item.grade_win">13</div>
+        <div class="type2" v-text="item.grade_equal">2</div>
   			<div class="type2" v-text="item.grade_lose">4</div>
-  			<div class="type2" v-text="item.grade_equal">2</div>
   			<div class="type3" v-text="item.grade_goal+'/'+item.grade_fumble">41/27</div>
   			<div class="type3" v-text="item.grade_integral"></div>
   		</dd>

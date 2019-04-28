@@ -15,7 +15,7 @@
   		      <h3 v-text="itemAll.time"></h3>
   		    	<router-link  :to="{ path: '/' + $route.params.leg + '/race/' + item.schedule_id }" class="row" v-for="(item,index) in itemAll.game" :key="index">
   		    		<div class="team">
-  		    			<div><img v-lazy="item.teama_logo" alt="球队logo"></div>
+  		    			<div><img :src="item.teama_logo" alt="球队logo"></div>
   		    			<p v-text="item.teama_name"></p>
   		    		</div>
   		    		<div class="content">
@@ -27,7 +27,7 @@
   		    			<h4 v-text="notStart" v-else></h4>
   		    		</div>
   		    		<div class="team">
-  		    			<div><img v-lazy="item.teamb_logo" alt=""></div>
+  		    			<div><img :src="item.teamb_logo" alt=""></div>
   		    			<p v-text="item.teamb_name"></p>
   		    		</div>
   		    	</router-link>
@@ -70,17 +70,16 @@
           order: this.order
         }
   	  	getRace(params).then((res) => {
-          console.log(res)
+          // console.log(res)
   	  	  if(res.status === 201) {
             this.races = res.data.data
-            console.log(this.races)
+            // console.log(this.races)
   	  	  }
   	  	}).catch(err => {
           console.log(err)
         })
   	  },
       loadTop() {
-        this.topoffset += this.limit
         this.order = 1
         const params = {
           league_id: this.$route.params.leg,
@@ -89,16 +88,17 @@
           order: this.order
         }
   	  	getRace(params).then((res) => {
-          console.log(res)
+          // console.log(res)
   	  	  if(res.status === 201) {
             this.races = [
               ...res.data.data.reverse(),
               ...this.races
             ]
-            console.log(this.races)
+            // console.log(this.races)
   	  	  }
   	  	})
-        console.log(this.dist)
+        this.topoffset += this.limit
+        this.$refs.scroll.refresh()
       },
       loadBottom() {
         this.botoffset += this.limit
@@ -110,13 +110,20 @@
           order: this.order
         }
   	  	getRace(params).then((res) => {
-          console.log(res)
+          // console.log(res)
   	  	  if(res.status === 201) {
-            this.races = [
-              ...this.races,
-              ...res.data.data
-            ]
-            console.log(this.races)
+            // console.log(res.data.data)
+            // console.log(this.races.length)
+            if (JSON.stringify(res.data.data) === '{}') {
+              // console.log(666666666)
+              this.loadTop()
+            } else {
+              this.races = [
+                ...this.races,
+                ...res.data.data
+              ]
+              // console.log('nore')
+            }
   	  	  }
   	  	})
         this.$refs.scroll.refresh()

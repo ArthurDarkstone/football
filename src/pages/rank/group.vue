@@ -8,8 +8,8 @@
         <div class="type0"></div>
         <div class="type1">球队</div>
         <div class="type2">胜</div>
-        <div class="type2">负</div>
         <div class="type2">平</div>
+        <div class="type2">负</div>
         <div class="type3">进/失</div>
         <div class="type3">积分</div>
   		</dt>
@@ -20,8 +20,8 @@
   				<span v-html="item.team_name"></span>
   			</div>
   			<div class="type2" v-text="item.gt_win">13</div>
+        <div class="type2" v-text="item.gt_equal">2</div>
   			<div class="type2" v-text="item.gt_lose">4</div>
-  			<div class="type2" v-text="item.gt_equal">2</div>
   			<div class="type3" v-text="item.gt_goal+'/'+item.gt_fumble">41/27</div>
   			<div class="type3" v-text="item.gt_integral"></div>
   		</dd>
